@@ -716,16 +716,18 @@ public partial class SysYParser : Parser {
 		}
 	}
 	public partial class DefinitionContext : VariableDefinitionContext {
+		public ConstExpressionContext _constExpression;
+		public IList<ConstExpressionContext> _dimensions = new List<ConstExpressionContext>();
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode Identifier() { return GetToken(SysYParser.Identifier, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode Semicolon() { return GetToken(SysYParser.Semicolon, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode LeftBracket() { return GetToken(SysYParser.LeftBracket, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ConstExpressionContext constExpression() {
-			return GetRuleContext<ConstExpressionContext>(0);
-		}
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode RightBracket() { return GetToken(SysYParser.RightBracket, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode Assign() { return GetToken(SysYParser.Assign, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public InitialValueContext initialValue() {
 			return GetRuleContext<InitialValueContext>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ConstExpressionContext constExpression() {
+			return GetRuleContext<ConstExpressionContext>(0);
 		}
 		public DefinitionContext(VariableDefinitionContext context) { CopyFrom(context); }
 		[System.Diagnostics.DebuggerNonUserCode]
@@ -746,12 +748,14 @@ public partial class SysYParser : Parser {
 		}
 	}
 	public partial class DeclareContext : VariableDefinitionContext {
+		public ConstExpressionContext _constExpression;
+		public IList<ConstExpressionContext> _dimensions = new List<ConstExpressionContext>();
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode Identifier() { return GetToken(SysYParser.Identifier, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode LeftBracket() { return GetToken(SysYParser.LeftBracket, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode RightBracket() { return GetToken(SysYParser.RightBracket, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ConstExpressionContext constExpression() {
 			return GetRuleContext<ConstExpressionContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode RightBracket() { return GetToken(SysYParser.RightBracket, 0); }
 		public DeclareContext(VariableDefinitionContext context) { CopyFrom(context); }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
@@ -794,7 +798,8 @@ public partial class SysYParser : Parser {
 					State = 119;
 					Match(LeftBracket);
 					State = 120;
-					constExpression();
+					((DefinitionContext)_localctx)._constExpression = constExpression();
+					((DefinitionContext)_localctx)._dimensions.Add(((DefinitionContext)_localctx)._constExpression);
 					State = 121;
 					Match(RightBracket);
 					}
@@ -830,7 +835,8 @@ public partial class SysYParser : Parser {
 					State = 131;
 					Match(LeftBracket);
 					State = 132;
-					constExpression();
+					((DeclareContext)_localctx)._constExpression = constExpression();
+					((DeclareContext)_localctx)._dimensions.Add(((DeclareContext)_localctx)._constExpression);
 					State = 133;
 					Match(RightBracket);
 					}

@@ -32,8 +32,8 @@ variableDeclaration
     ;
     
 variableDefinition
-    : Identifier (LeftBracket constExpression RightBracket)? (Assign initialValue)? Semicolon #Definition
-    | Identifier (LeftBracket constExpression RightBracket)? #Declare
+    : Identifier (LeftBracket dimensions+=constExpression RightBracket)? (Assign initialValue)? Semicolon #Definition
+    | Identifier (LeftBracket dimensions+=constExpression RightBracket)? #Declare
     ;
     
 initialValue
