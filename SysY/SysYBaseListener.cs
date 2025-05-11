@@ -428,19 +428,19 @@ public partial class SysYBaseListener : ISysYListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitUnaryMinus([NotNull] SysYParser.UnaryMinusContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by the <c>LogicalNot</c>
+	/// Enter a parse tree produced by the <c>UnaryNot</c>
 	/// labeled alternative in <see cref="SysYParser.unaryExpression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterLogicalNot([NotNull] SysYParser.LogicalNotContext context) { }
+	public virtual void EnterUnaryNot([NotNull] SysYParser.UnaryNotContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by the <c>LogicalNot</c>
+	/// Exit a parse tree produced by the <c>UnaryNot</c>
 	/// labeled alternative in <see cref="SysYParser.unaryExpression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitLogicalNot([NotNull] SysYParser.LogicalNotContext context) { }
+	public virtual void ExitUnaryNot([NotNull] SysYParser.UnaryNotContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by the <c>Primary</c>
 	/// labeled alternative in <see cref="SysYParser.unaryExpression"/>.

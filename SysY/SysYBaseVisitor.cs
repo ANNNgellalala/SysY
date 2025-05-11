@@ -351,7 +351,7 @@ public partial class SysYBaseVisitor<Result> : AbstractParseTreeVisitor<Result>,
 	/// <return>The visitor result.</return>
 	public virtual Result VisitUnaryMinus([NotNull] SysYParser.UnaryMinusContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by the <c>LogicalNot</c>
+	/// Visit a parse tree produced by the <c>UnaryNot</c>
 	/// labeled alternative in <see cref="SysYParser.unaryExpression"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
@@ -360,7 +360,7 @@ public partial class SysYBaseVisitor<Result> : AbstractParseTreeVisitor<Result>,
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitLogicalNot([NotNull] SysYParser.LogicalNotContext context) { return VisitChildren(context); }
+	public virtual Result VisitUnaryNot([NotNull] SysYParser.UnaryNotContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by the <c>Primary</c>
 	/// labeled alternative in <see cref="SysYParser.unaryExpression"/>.

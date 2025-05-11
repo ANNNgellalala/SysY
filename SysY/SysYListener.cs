@@ -363,17 +363,17 @@ public interface ISysYListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitUnaryMinus([NotNull] SysYParser.UnaryMinusContext context);
 	/// <summary>
-	/// Enter a parse tree produced by the <c>LogicalNot</c>
+	/// Enter a parse tree produced by the <c>UnaryNot</c>
 	/// labeled alternative in <see cref="SysYParser.unaryExpression"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterLogicalNot([NotNull] SysYParser.LogicalNotContext context);
+	void EnterUnaryNot([NotNull] SysYParser.UnaryNotContext context);
 	/// <summary>
-	/// Exit a parse tree produced by the <c>LogicalNot</c>
+	/// Exit a parse tree produced by the <c>UnaryNot</c>
 	/// labeled alternative in <see cref="SysYParser.unaryExpression"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitLogicalNot([NotNull] SysYParser.LogicalNotContext context);
+	void ExitUnaryNot([NotNull] SysYParser.UnaryNotContext context);
 	/// <summary>
 	/// Enter a parse tree produced by the <c>Primary</c>
 	/// labeled alternative in <see cref="SysYParser.unaryExpression"/>.

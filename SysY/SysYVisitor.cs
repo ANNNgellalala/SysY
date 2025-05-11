@@ -228,12 +228,12 @@ public interface ISysYVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitUnaryMinus([NotNull] SysYParser.UnaryMinusContext context);
 	/// <summary>
-	/// Visit a parse tree produced by the <c>LogicalNot</c>
+	/// Visit a parse tree produced by the <c>UnaryNot</c>
 	/// labeled alternative in <see cref="SysYParser.unaryExpression"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitLogicalNot([NotNull] SysYParser.LogicalNotContext context);
+	Result VisitUnaryNot([NotNull] SysYParser.UnaryNotContext context);
 	/// <summary>
 	/// Visit a parse tree produced by the <c>Primary</c>
 	/// labeled alternative in <see cref="SysYParser.unaryExpression"/>.
