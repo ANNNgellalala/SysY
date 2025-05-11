@@ -9,6 +9,13 @@
 
     <ItemGroup>
       <PackageReference Include="Antlr4.Runtime.Standard" Version="4.13.1" />
+      <PackageReference Include="NetEscapades.EnumGenerators" Version="1.0.0-beta12" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="SimpleTests\Empty.sysy">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>

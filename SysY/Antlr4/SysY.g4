@@ -10,52 +10,52 @@ declaration
     ;
     
 bType
-    : 'int'
-    | 'float'
+    : Int
+    | Float
     ;
     
 constantDeclaration
-    : 'const' bType constants+=constDefinition (',' constants+=constDefinition)* ';'
+    : Const bType constants+=constDefinition (Comma constants+=constDefinition)* Semicolon
     ;
     
 constDefinition
-    : Identifier ('[' constExpression ']')? '=' constInitValue ';'
+    : Identifier (LeftBracket dimensions+=constExpression RightBracket)* Assign constInitValue Semicolon
     ;
     
 constInitValue
     : constExpression
-    | '{' elements+=constInitValue (',' elements+=constInitValue)* '}'
+    | LeftBrace (elements+=constInitValue (Comma elements+=constInitValue)*)? RightBrace
     ;
     
 variableDeclaration
-    : bType variables+=variableDefinition (',' variables+=variableDefinition)* ';'
+    : bType variables+=variableDefinition (Comma variables+=variableDefinition)* Semicolon
     ;
     
 variableDefinition
-    : Identifier ('[' constExpression ']')? ('=' initialValue)? ';' #Definition
-    | Identifier ('[' constExpression ']')? #Declare
+    : Identifier (LeftBracket constExpression RightBracket)? (Assign initialValue)? Semicolon #Definition
+    | Identifier (LeftBracket constExpression RightBracket)? #Declare
     ;
     
 initialValue
     : expression
-    | '{' elements+=initialValue (',' elements+=initialValue)* '}'
+    | LeftBrace (elements+=initialValue (Comma elements+=initialValue)*)? RightBrace
     ;
     
 functionDefinition
-    : functionType Identifier '(' (parameters+=parameterDeclaration (',' parameters+=parameterDeclaration)*)? ')' block
+    : functionType Identifier LeftBrace (parameters+=parameterDeclaration (Comma parameters+=parameterDeclaration)*)? RightBrace block
     ;
     
 functionType
     : bType
-    | 'void'
+    | Void
     ;
     
 parameterDeclaration
-    : bType Identifier ('[' ']' ('[' expression ']')*)?
+    : bType Identifier (LeftBracket RightBracket (LeftBracket expression RightBracket)*)?
     ;
     
 block
-    : '{' (statements+=blockItem)* '}'
+    : LeftBrace (statements+=blockItem)* RightBrace
     ;
     
 blockItem
@@ -64,13 +64,13 @@ blockItem
     ;
     
 statement
-    : leftValue '=' expression ';' #Assignment
-    | expression? ';' #NormalExpression
-    | 'if' '(' condition=logicalOrExpression ')' trueBlock=statement ('else' falseBlock=statement)? #If
-    | 'while' '(' condition=logicalOrExpression ')' loopBody=statement #While
-    | 'break' ';' #Break
-    | 'continue' ';' #Continue
-    | 'return' expression? ';' #Return
+    : leftValue Assign expression Semicolon #Assignment
+    | expression? Semicolon #NormalExpression
+    | If LeftParenthesis condition=logicalOrExpression RightParenthesis trueBlock=statement (Else falseBlock=statement)? #If
+    | While LeftParenthesis condition=logicalOrExpression RightParenthesis loopBody=statement #While
+    | Break Semicolon #Break
+    | Continue Semicolon #Continue
+    | Return expression? Semicolon #Return
     ;
     
 expression
@@ -78,52 +78,52 @@ expression
     ;
     
 leftValue
-    : Identifier ('[' expression ']')* #ArrayAccess
+    : Identifier (LeftBracket expression RightBracket)* #ArrayAccess
     | Identifier #VariableAccess
     ;
     
 primaryExpression
     : leftValue #LeftValueAccess
     | Constant #Constant
-    | '(' expression ')' #Parentheses
+    | LeftParenthesis expression RightParenthesis #Parentheses
     ;
 
 unaryExpression
-    : '+' expression #UnaryPlus
-    | '-' expression #UnaryMinus
-    | '!' expression #LogicalNot
+    : Plus expression #UnaryPlus
+    | Minus expression #UnaryMinus
+    | Not expression #UnaryNot
     | primaryExpression #Primary
-    | Identifier '(' (arguments+=expression (',' arguments+=expression)*)? ')' #FunctionCall
+    | Identifier LeftParenthesis (arguments+=expression (Comma arguments+=expression)*)? RightParenthesis #FunctionCall
     ;
     
 multiplicativeExpression
     : unaryExpression
-    | multiplicativeExpression ('*' | '/' | '%') unaryExpression
+    | multiplicativeExpression (Multiply | Divide | Mod) unaryExpression
     ;
     
 additiveExpression
     : multiplicativeExpression
-    | additiveExpression ('+' | '-') multiplicativeExpression
+    | additiveExpression (Plus | Minus) multiplicativeExpression
     ;
     
 relationalExpression
     : additiveExpression
-    | relationalExpression ('<' | '>' | '<=' | '>=') additiveExpression
+    | relationalExpression (Less | Greater | LessEqual | GreaterEqual) additiveExpression
     ;
     
 equalityExpression
     : relationalExpression
-    | equalityExpression ('==' | '!=') relationalExpression
+    | equalityExpression (Equal | NotEqual) relationalExpression
     ;
     
 logicalAndExpression
     : equalityExpression
-    | logicalAndExpression '&&' equalityExpression
+    | logicalAndExpression AndAnd equalityExpression
     ;
     
 logicalOrExpression
     : logicalAndExpression
-    | logicalOrExpression '||' logicalAndExpression
+    | logicalOrExpression OrOr logicalAndExpression
     ;   
     
 constExpression
@@ -140,6 +140,145 @@ MultiLineComment
 
 Identifier
     : [a-zA-Z_][a-zA-Z0-9_]* // Identifiers start with a letter or underscore, followed by letters, digits, or underscores
+    ;
+    
+// 符号
+// =
+Assign
+    : '='
+    ;
+    
+// + - * / %
+Plus
+    : '+'
+    ;
+    
+Minus
+    : '-'
+    ;
+    
+Multiply
+    : '*'
+    ;
+    
+Divide
+    : '/'
+    ;
+    
+Mod
+    : '%'
+    ;
+    
+// && || ! == != < > <= >=
+AndAnd
+    : '&&'
+    ;
+    
+OrOr
+    : '||'
+    ;
+    
+Not
+    : '!'
+    ;
+    
+Equal
+    : '=='
+    ;
+    
+NotEqual
+    : '!='
+    ;
+    
+Less
+    : '<'
+    ;
+    
+Greater
+    : '>'
+    ;
+    
+LessEqual
+    : '<='
+    ;
+    
+GreaterEqual
+    : '>='
+    ;
+    
+// ( ) [ ] { }
+LeftParenthesis
+    : '('
+    ;
+    
+RightParenthesis
+    : ')'
+    ;
+    
+LeftBracket
+    : '['
+    ;
+    
+RightBracket    
+    : ']'
+    ;
+    
+LeftBrace
+    : '{'
+    ;
+    
+RightBrace
+    : '}'
+    ;
+    
+// 基本类型 关键字
+Int
+    : 'int'
+    ;
+    
+Float
+    : 'float'
+    ;
+    
+Void
+    : 'void'
+    ;
+    
+Const
+    : 'const'
+    ;
+    
+Break
+    : 'break'
+    ;
+    
+Continue
+    : 'continue'
+    ;
+    
+Return
+    : 'return'
+    ;
+    
+If
+    : 'if'
+    ;
+    
+Else
+    : 'else'
+    ;
+   
+While
+    : 'while'
+    ;
+    
+// , ;
+Comma
+    : ','
+    ;
+    
+Semicolon
+    : ';'
     ;
     
 // Copy From C.g4 https://github.com/antlr/grammars-v4/blob/master/c/C.g4
