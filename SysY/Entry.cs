@@ -74,12 +74,3 @@ public class Entry
         };
     }
 }
-
-public enum SysYType
-{
-    Int,
-
-    Float,
-
-    Void,
-}

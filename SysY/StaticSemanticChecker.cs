@@ -12,6 +12,8 @@ public class StaticSemanticChecker : SysYBaseListener
 
     public List<Dictionary<string, Entry>> SymbolTables { get; set; } = [];
 
+    public int BlockCount { get; set; }
+    
     // 开始编译单元时初始化全局的符号表
     public override void EnterCompilationUnit(
         SysYParser.CompilationUnitContext context)
@@ -222,6 +224,61 @@ public class StaticSemanticChecker : SysYBaseListener
         SysYParser.FunctionDefinitionContext context)
     {
         SymbolTables.RemoveAt(SymbolTables.Count - 1);
+    }
+
+    public override void EnterBlock(
+        SysYParser.BlockContext context)
+    {
+        BlockCount++;
+        if (BlockCount != 1)
+            SymbolTables.Add(new Dictionary<string, Entry>());
+
+        foreach (var blockItem in context._statements)
+        {
+            if (blockItem.statement() != null)
+            {
+                switch (blockItem.statement())
+                {
+                    case SysYParser.AssignmentContext assignment:
+                        EnterAssignment(assignment);
+                        break;
+                    case SysYParser.NormalExpressionContext normalExpression:
+                        EnterNormalExpression(normalExpression);
+                        break;
+                    case SysYParser.IfContext ifStatement:
+                        EnterIf(ifStatement);
+                        break;
+                    case SysYParser.WhileContext whileStatement:
+                        EnterWhile(whileStatement);
+                        break;
+                    case SysYParser.BreakContext breakStatement:
+                        EnterBreak(breakStatement);
+                        break;
+                    case SysYParser.ContinueContext continueStatement:
+                        EnterContinue(continueStatement);
+                        break;
+                    case SysYParser.ReturnContext returnStatement:
+                        EnterReturn(returnStatement);
+                        break;
+                }
+            }
+            else
+            {
+                var declaration = blockItem.declaration();
+                if (declaration.constantDeclaration() != null)
+                    EnterConstantDeclaration(declaration.constantDeclaration());
+                else if (declaration.variableDeclaration() != null)
+                    EnterVariableDeclaration(declaration.variableDeclaration());
+            }
+        }
+    }
+    
+    public override void ExitBlock(
+        SysYParser.BlockContext context)
+    {
+        BlockCount--;
+        if (BlockCount != 1)
+            SymbolTables.RemoveAt(SymbolTables.Count - 1);
     }
 
     public override void EnterVariableAccess(
