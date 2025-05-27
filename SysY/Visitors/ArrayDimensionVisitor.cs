@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace SysY.Utils;
+namespace SysY.Visitors;
 
 public class ArrayDimensionVisitor : SysYBaseVisitor<bool>
 {

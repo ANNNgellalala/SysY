@@ -1,4 +1,4 @@
-﻿namespace SysY.Utils;
+﻿namespace SysY.Visitors;
 
 public class ArrayInitialVisitor : SysYBaseVisitor<List<float>>
 {

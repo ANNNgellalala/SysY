@@ -1,4 +1,4 @@
-﻿namespace SysY.Utils;
+﻿namespace SysY.Visitors;
 
 public class ConstantExpressionVisitor : SysYBaseVisitor<(bool Result, float Value)>
 {

@@ -1,9 +1,8 @@
-﻿using Antlr4.Runtime;
-using Antlr4.Runtime.Misc;
+﻿using Antlr4.Runtime.Misc;
 
-namespace SysY;
+namespace SysY.Reporter;
 
-public class ErrorReporter
+public class ErrorReporter : IErrorReporter
 {
     private List<ErrorInfo> _errors = [];
     

@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using SysY.Utils;
+using SysY.Reporter;
+using SysY.Visitors;
 
 namespace SysY;
 
