@@ -1,0 +1,12 @@
+﻿// 定义加法函数，返回a和b的和
+int Add(int a, int b) {
+    return a + b;
+}
+
+int main() {
+    int num1 = 5;
+    int num2 = 7;
+    // 调用Add函数计算两数之和
+    int sum = Add(num1, num2);
+    return 0;
+}
