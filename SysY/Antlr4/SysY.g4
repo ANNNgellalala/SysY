@@ -19,7 +19,7 @@ constantDeclaration
     ;
     
 constDefinition
-    : Identifier (LeftBracket dimensions+=constExpression RightBracket)* Assign constInitValue Semicolon
+    : Identifier (LeftBracket dimensions+=constExpression RightBracket)* Assign constInitValue
     ;
     
 constInitValue
@@ -32,8 +32,8 @@ variableDeclaration
     ;
     
 variableDefinition
-    : Identifier (LeftBracket dimensions+=constExpression RightBracket)? (Assign initialValue)? Semicolon #Definition
-    | Identifier (LeftBracket dimensions+=constExpression RightBracket)? #Declare
+    : Identifier (LeftBracket dimensions+=constExpression RightBracket)* Assign initialValue #Definition
+    | Identifier (LeftBracket dimensions+=constExpression RightBracket)* #Declare
     ;
     
 initialValue
@@ -42,7 +42,7 @@ initialValue
     ;
     
 functionDefinition
-    : functionType Identifier LeftBrace (parameters+=parameterDeclaration (Comma parameters+=parameterDeclaration)*)? RightBrace block
+    : functionType Identifier LeftParenthesis (parameters+=parameterDeclaration (Comma parameters+=parameterDeclaration)*)? RightParenthesis block
     ;
     
 functionType
@@ -71,6 +71,7 @@ statement
     | Break Semicolon #Break
     | Continue Semicolon #Continue
     | Return expression? Semicolon #Return
+    | block #NestedBlock
     ;
     
 expression
@@ -136,10 +137,6 @@ SingleLineComment
     
 MultiLineComment
     : '/*' .*? '*/' -> skip
-    ;
-
-Identifier
-    : [a-zA-Z_][a-zA-Z0-9_]* // Identifiers start with a letter or underscore, followed by letters, digits, or underscores
     ;
     
 // 符号
@@ -281,6 +278,10 @@ Semicolon
     : ';'
     ;
     
+Identifier
+    : [a-zA-Z_][a-zA-Z0-9_]* // Identifiers start with a letter or underscore, followed by letters, digits, or underscores
+    ;
+    
 // Copy From C.g4 https://github.com/antlr/grammars-v4/blob/master/c/C.g4
 Constant
     : IntegerConstant
@@ -288,7 +289,7 @@ Constant
     ;
     
 fragment IntegerConstant
-    : Sign DecimalConstant
+    : Sign? DecimalConstant
     | OctalConstant
     | HexadecimalConstant
     | BinaryConstant
@@ -354,4 +355,9 @@ fragment ExponentPart
 
 DigitSequence
     : Digit+
+    ;
+    
+// Whitespace
+Whitespace
+    : [ \t\r\n]+ -> skip
     ;

@@ -269,6 +269,18 @@ public interface ISysYListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitReturn([NotNull] SysYParser.ReturnContext context);
 	/// <summary>
+	/// Enter a parse tree produced by the <c>NestedBlock</c>
+	/// labeled alternative in <see cref="SysYParser.statement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterNestedBlock([NotNull] SysYParser.NestedBlockContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>NestedBlock</c>
+	/// labeled alternative in <see cref="SysYParser.statement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitNestedBlock([NotNull] SysYParser.NestedBlockContext context);
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="SysYParser.expression"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

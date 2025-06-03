@@ -173,6 +173,13 @@ public interface ISysYVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitReturn([NotNull] SysYParser.ReturnContext context);
 	/// <summary>
+	/// Visit a parse tree produced by the <c>NestedBlock</c>
+	/// labeled alternative in <see cref="SysYParser.statement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitNestedBlock([NotNull] SysYParser.NestedBlockContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="SysYParser.expression"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

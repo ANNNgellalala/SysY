@@ -318,6 +318,20 @@ public partial class SysYBaseListener : ISysYListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitReturn([NotNull] SysYParser.ReturnContext context) { }
 	/// <summary>
+	/// Enter a parse tree produced by the <c>NestedBlock</c>
+	/// labeled alternative in <see cref="SysYParser.statement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterNestedBlock([NotNull] SysYParser.NestedBlockContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>NestedBlock</c>
+	/// labeled alternative in <see cref="SysYParser.statement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitNestedBlock([NotNull] SysYParser.NestedBlockContext context) { }
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="SysYParser.expression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
